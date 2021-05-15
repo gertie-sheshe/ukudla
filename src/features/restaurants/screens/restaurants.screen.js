@@ -6,36 +6,37 @@ import {
   Platform,
   StatusBar,
 } from "react-native";
+import styled from "styled-components/native";
+
 import { Searchbar } from "react-native-paper";
 
 import RestaurantInfoCard from "../components/restaurant-info-card";
 
 const isAndroid = Platform.OS === "android";
 
-const RestaurantsScreen = () => (
-  <SafeAreaView style={styles.main}>
-    <View style={styles.searchContainer}>
-      <Searchbar placeholder="Search" />
-    </View>
-    <View style={styles.listContainer}>
-      <RestaurantInfoCard />
-    </View>
-  </SafeAreaView>
-);
+const SafeArea = styled(SafeAreaView)`
+  flex: 1;
+  margin-top: ${isAndroid ? StatusBar.currentHeight : 0}px;
+`;
 
-const styles = StyleSheet.create({
-  main: {
-    flex: 1,
-    marginTop: isAndroid ? StatusBar.currentHeight : 0,
-  },
-  searchContainer: {
-    padding: 16,
-  },
-  listContainer: {
-    padding: 16,
-    flex: 1,
-    backgroundColor: "blue",
-  },
-});
+const SearchContainer = styled.View`
+  padding: 16px;
+`;
+
+const ListContainer = styled.View`
+  padding: 16px;
+  flex: 1;
+`;
+
+const RestaurantsScreen = () => (
+  <SafeArea>
+    <SearchContainer>
+      <Searchbar placeholder="Search" />
+    </SearchContainer>
+    <ListContainer>
+      <RestaurantInfoCard />
+    </ListContainer>
+  </SafeArea>
+);
 
 export default RestaurantsScreen;

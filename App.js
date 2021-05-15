@@ -8,6 +8,7 @@ import {
   Platform,
   StatusBar,
 } from "react-native";
+import { Searchbar } from "react-native-paper";
 
 const isAndroid = Platform.OS === "android";
 
@@ -16,7 +17,7 @@ export default function App() {
     <>
       <SafeAreaView style={styles.main}>
         <View style={styles.searchContainer}>
-          <Text>Search</Text>
+          <Searchbar placeholder="Search" />
         </View>
         <View style={styles.listContainer}>
           <Text>List</Text>
@@ -34,7 +35,6 @@ const styles = StyleSheet.create({
   },
   searchContainer: {
     padding: 16,
-    backgroundColor: "green",
   },
   listContainer: {
     padding: 16,

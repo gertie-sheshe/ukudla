@@ -40,9 +40,16 @@ const RestaurantInfo = ({ restaurant = {} }) => {
         <Text>{name}</Text>
         <Section>
           <Rating>
-            {ratingArray?.map((index) => (
-              <SvgXml key={index} xml={star} width={20} height={20} />
-            ))}
+            {ratingArray?.map((item, index) => {
+              return (
+                <SvgXml
+                  key={index.toString()}
+                  xml={star}
+                  width={20}
+                  height={20}
+                />
+              );
+            })}
           </Rating>
         </Section>
         <SectionEnd>

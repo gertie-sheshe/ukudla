@@ -1,39 +1,63 @@
 import React from "react";
-import styled from "styled-components/native";
-import { Card } from "react-native-paper";
+import { SvgXml } from "react-native-svg";
 
-const Title = styled.Text`
-  padding: ${(props) => props.theme.space[3]};
-  color: ${(props) => props.theme.colors.ui.primary};
-  font-family: ${(props) => props.theme.fonts.body};
-`;
+import { Spacer } from "../../../components/spacer/index";
+import { Text } from "../../../components/typography/index";
 
-const RestaurantCard = styled(Card)`
-  background-color: ${(props) => props.theme.colors.bg.primary};
-`;
+import star from "../../../../assets/star";
+import open from "../../../../assets/open";
 
-const RestaurantCardCover = styled(Card.Cover)`
-  background-color: ${(props) => props.theme.colors.bg.primary};
-  padding: ${(props) => props.theme.space[3]};
-`;
+import {
+  RestaurantCard,
+  RestaurantCardCover,
+  Info,
+  Section,
+  SectionEnd,
+  Rating,
+  Icon,
+  Address,
+} from "./restaurant-info-card.styles.js";
 
 const RestaurantInfo = ({ restaurant = {} }) => {
   const {
-    name = "that restaurant",
-    icon,
+    name = "Kilele Nyama",
+    icon = "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
     photos = [
       "https://www.sgs.co.ke/-/media/global/images/structural-website-images/hero-images/hero-agri-appetizers.jpg",
     ],
     address = "221b baker street",
     isOpenNow = true,
     rating = 4,
-    isClosed,
+    isClosedTemporarily = true,
   } = restaurant;
+
+  const ratingArray = Array.from(new Array(Math.floor(rating)));
 
   return (
     <RestaurantCard elevation={5}>
       <RestaurantCardCover key={name} source={{ uri: photos[0] }} />
-      <Title>{name}</Title>
+      <Info>
+        <Text>{name}</Text>
+        <Section>
+          <Rating>
+            {ratingArray?.map((index) => (
+              <SvgXml key={index} xml={star} width={20} height={20} />
+            ))}
+          </Rating>
+        </Section>
+        <SectionEnd>
+          {isClosedTemporarily && (
+            <Text variant="error">CLOSED TEMPORARILY</Text>
+          )}
+          <Spacer position="left" size="large">
+            {isOpenNow && <SvgXml xml={open} width={20} height={20} />}
+          </Spacer>
+          <Spacer position="left" size="large">
+            <Icon source={{ uri: icon }} />
+          </Spacer>
+        </SectionEnd>
+        <Address>{address}</Address>
+      </Info>
     </RestaurantCard>
   );
 };

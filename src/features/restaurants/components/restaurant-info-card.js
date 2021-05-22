@@ -29,6 +29,7 @@ const RestaurantInfo = ({ restaurant = {} }) => {
     isOpenNow = true,
     rating = 4,
     isClosedTemporarily = true,
+    placeId,
   } = restaurant;
 
   const ratingArray = Array.from(new Array(Math.floor(rating)));
@@ -43,7 +44,7 @@ const RestaurantInfo = ({ restaurant = {} }) => {
             {ratingArray?.map((item, index) => {
               return (
                 <SvgXml
-                  key={index.toString()}
+                  key={`star=${placeId}-${index}`}
                   xml={star}
                   width={20}
                   height={20}
